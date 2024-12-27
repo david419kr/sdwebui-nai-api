@@ -11,15 +11,43 @@
                     &emsp;2girls, couple, sitting together, holding hands, looking at another, facing viewer<br />
                     &emsp;CHAR: aoki reika, smile precure!, nanairogaoka middle school uniform<br />
                     &emsp;CHAR: dawn \(pokemon\), pokemon dppt, pink miniskirt, black vest, sleeveless<br /><br />
+
+### How to use manual character positioning
+You can use "POS:" prefix under "CHAR:" line, to add character position coordinates.<br />
+                    "POS:" prefix is only compatible with "CHAR:" syntax, not "|" syntax.<br />
+                    If there is no "POS:" prefix, the character will be placed by "AI's Choice".<br />
+                    The coordinates are like below.
+                    
+<pre><code>0.1,0.1 | 0.3,0.1 | 0.5,0.1 | 0.7,0.1 | 0.9,0.1
+ ---------------------------------------------
+0.1,0.3 | 0.3,0.3 | 0.5,0.3 | 0.7,0.3 | 0.9,0.3
+ ---------------------------------------------
+0.1,0.5 | 0.3,0.5 | 0.5,0.5 | 0.7,0.5 | 0.9,0.5
+ ---------------------------------------------
+0.1,0.7 | 0.3,0.7 | 0.5,0.7 | 0.7,0.7 | 0.9,0.7
+ ---------------------------------------------
+0.1,0.9 | 0.3,0.9 | 0.5,0.9 | 0.7,0.9 | 0.9,0.9
+</code></pre>
+</code>
+
+*Prompt example*:<br />
+                    &emsp;2girls, sunny outdoors, sunbeam, looking at another, <br />
+                    &emsp;CHAR: sabrina \(pokemon\), pokemon hgss, black hair, red eyes<br />
+                    &emsp;POS: 0.3,0.5<br />
+                    &emsp;CHAR: dawn \(pokemon\), pokemon, blue hair, blue eyes<br />
+                    &emsp;POS: 0.9,0.9<br /><br />
+                    
 ### You must use * instead of # for Action Tags feature.
-WebUI seems to ignore all prompts after # character, so I made * to work instead of #.<br />
+WebUI seems to ignore all prompts after # character, so I made \* to work instead of #.<br />
                     For example, "target#pointing" becomes "target\*pointing" here.<br /><br />
                     *Prompt example*:<br />
                     &emsp;official style, 2girls,<br />
                     &emsp;CHAR: aoki reika, smile precure!, source\*pointing at another, laughing, nanairogaoka middle school uniform, <br />
                     &emsp;CHAR: dawn \(pokemon\), pokemon dppt, target\*pointing, wavy mouth, full-face blush, shy<br /><br />
 
-![image](https://github.com/user-attachments/assets/f2faf394-accc-4683-b8c0-b6a413184eda)
+![image](https://github.com/user-attachments/assets/870f0010-ff13-49df-81f3-8e0acb893a75)
+
+
 
 
 
