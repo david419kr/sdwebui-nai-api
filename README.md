@@ -1,3 +1,27 @@
+# forked version for NAIv4 curated preview support
+<strong>*Only T2I might work now.*</strong>
+### How to use NAIv4 character prompt function
+"CHAR:" prefix is equal to "Add Character" boxes at NAI site.<br />
+                    Or, you can also use '|' to separate character information.<br />
+                    (Seems same to me, but NAI blog says the first way is recommended.)<br />
+                    (Note that it is NOT possible to mix the | prompt and the CHAR: prompt.)<br />
+                    Max 6 character prompts available(more than 6 will be ignored).<br />
+                    Can be used at both positive and negative.<br /><br />
+                    *Prompt example*:<br />
+                    &emsp;2girls, couple, sitting together, holding hands, looking at another, facing viewer<br />
+                    &emsp;CHAR: aoki reika, smile precure!, nanairogaoka middle school uniform<br />
+                    &emsp;CHAR: dawn \(pokemon\), pokemon dppt, pink miniskirt, black vest, sleeveless<br /><br />
+### You must use * instead of # for Action Tags feature.
+WebUI seems to ignore all prompts after # character, so I made * to work instead of #.<br />
+                    For example, "target#pointing" becomes "target\*pointing" here.<br /><br />
+                    *Prompt example*:<br />
+                    &emsp;official style, 2girls,<br />
+                    &emsp;CHAR: aoki reika, smile precure!, source\*pointing, laughing, nanairogaoka middle school uniform, <br />
+                    &emsp;CHAR: dawn \(pokemon\), pokemon dppt, target\*pointing, wavy mouth, full-face blush, shy<br /><br />
+
+![image](https://github.com/user-attachments/assets/d8d9074f-1a65-46c3-9250-94c19b3af66c)
+
+
 # sdwebui-nai-api - Novel AI Image Gen in stable-diffusion webui
 
 ### An an extension for A1111's stable-diffusion-webui that pulls images using NovelAI's Image Generation Tool API.
