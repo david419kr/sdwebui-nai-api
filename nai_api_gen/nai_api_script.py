@@ -94,7 +94,10 @@ class NAIGENScriptBase(scripts.Script):
                 gr.Markdown(
                     """<details>
                     <summary><strong>How to use NAIv4 character prompt function</strong></summary>
-                    Use "CHAR:" prefix for each character prompt.<br />
+                    "CHAR:" prefix is equal to "Add Character" boxes at NAI site.<br />
+                    Or, you can also use '|' to separate character information.<br />
+                    (Seems same to me, but NAI blog says the first way is recommended.)<br />
+                    (Note that it is NOT possible to mix the | prompt and the CHAR: prompt.)<br />
                     Max 6 character prompts available(more than 6 will be ignored).<br />
                     Can be used at both positive and negative.<br /><br />
                     Prompt example:<br />
@@ -103,6 +106,18 @@ class NAIGENScriptBase(scripts.Script):
                     &emsp;CHAR: dawn \(pokemon\), pokemon dppt, pink miniskirt, black vest, sleeveless<br /><br />
                     </details>""",
                     dangerously_allow_html=True
+                )
+            with gr.Row(variant="compact"):
+                gr.Markdown(
+                    """<details>
+                    <summary><strong>You must use * instead of # for Action Tags feature.</strong></summary>
+                    WebUI seems to ignore all prompts after # character, so I made * to work instead of #.<br />
+                    For example, "target#pointing" becomes "target*pointing" here.<br /><br />
+                    Prompt example:<br />
+                    &emsp;official style, 2girls,<br />
+                    &emsp;CHAR: aoki reika, smile precure!, source*pointing, laughing, nanairogaoka middle school uniform, <br />
+                    &emsp;CHAR: dawn \(pokemon\), pokemon dppt, target*pointing, wavy mouth, full-face blush, shy<br /><br />
+                    <detailes>"""
                 )
             with gr.Row(variant="compact", visible = is_img2img):
                 do_local_img2img = gr.Dropdown(value=do_local_img2img_modes[0],choices= do_local_img2img_modes,type="index", label="Mode")

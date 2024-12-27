@@ -471,6 +471,9 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
             if 'CHAR:' in prompt:
                 char_index = prompt.find('CHAR:')
                 prompt = prompt[:char_index].lstrip(' ,') + ', ' + tags + ', ' + prompt[char_index:]
+            elif '|' in prompt:
+                char_index = prompt.find('|')
+                prompt = prompt[:char_index].lstrip(' ,') + ', ' + tags + ', ' + prompt[char_index:]
             else:
                 prompt = f'{prompt}, {tags}'
         else:
@@ -512,6 +515,9 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
         if model == NAIv4cp:
             if 'CHAR:' in neg:
                 char_index = neg.find('CHAR:')
+                neg = neg[:char_index].lstrip(' ,') + ', ' + tags + ', ' + neg[char_index:]
+            elif '|' in neg:
+                char_index = neg.find('|')
                 neg = neg[:char_index].lstrip(' ,') + ', ' + tags + ', ' + neg[char_index:]
             else:
                 neg = f'{tags}, {neg}'
@@ -600,6 +606,7 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
     v4_negative_prompt = None
 
     if model == NAIv4cp:
+        prompt = prompt.replace('*', '#')
         basePrompt = prompt.split("CHAR:")[0].rstrip(' ,')
         baseNeg = neg.split("CHAR:")[0].rstrip(' ,')
         characterPrompts = []
@@ -666,10 +673,10 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
         prompt = basePrompt
         neg = baseNeg
 
-        output = f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}", "use_coords": false, "character_prompts": {characterPrompts}, "v4_prompt": {v4_prompt}, "v4_negative_prompt": {v4_negative_prompt}, "deliberate_euler_ancestral_bug": {str(deliberate_euler_ancestral_bug).lower()}, "prefer_brownian": {str(prefer_brownian).lower()}}}}}'
+        output = f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}", "use_coords": false, "characterPrompts": {characterPrompts}, "v4_prompt": {v4_prompt}, "v4_negative_prompt": {v4_negative_prompt}, "deliberate_euler_ancestral_bug": {str(deliberate_euler_ancestral_bug).lower()}, "prefer_brownian": {str(prefer_brownian).lower()}}}}}'
         # save output.json
-        # with open("output.json", "w", encoding="utf8") as file:
-        #     file.write(output)
+        with open("output.json", "w", encoding="utf8") as file:
+            file.write(output)
         return output
     return f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}"}}}}'
 
