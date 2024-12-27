@@ -16,10 +16,11 @@ WebUI seems to ignore all prompts after # character, so I made * to work instead
                     For example, "target#pointing" becomes "target\*pointing" here.<br /><br />
                     *Prompt example*:<br />
                     &emsp;official style, 2girls,<br />
-                    &emsp;CHAR: aoki reika, smile precure!, source\*pointing, laughing, nanairogaoka middle school uniform, <br />
+                    &emsp;CHAR: aoki reika, smile precure!, source\*pointing at another, laughing, nanairogaoka middle school uniform, <br />
                     &emsp;CHAR: dawn \(pokemon\), pokemon dppt, target\*pointing, wavy mouth, full-face blush, shy<br /><br />
 
-![image](https://github.com/user-attachments/assets/d8d9074f-1a65-46c3-9250-94c19b3af66c)
+![image](https://github.com/user-attachments/assets/f2faf394-accc-4683-b8c0-b6a413184eda)
+
 
 
 # sdwebui-nai-api - Novel AI Image Gen in stable-diffusion webui
