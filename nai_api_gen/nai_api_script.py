@@ -115,7 +115,7 @@ class NAIGENScriptBase(scripts.Script):
                     For example, "target#pointing" becomes "target*pointing" here.<br /><br />
                     Prompt example:<br />
                     &emsp;official style, 2girls,<br />
-                    &emsp;CHAR: aoki reika, smile precure!, source*pointing, laughing, nanairogaoka middle school uniform, <br />
+                    &emsp;CHAR: aoki reika, smile precure!, source*pointing at another, laughing, nanairogaoka middle school uniform, <br />
                     &emsp;CHAR: dawn \(pokemon\), pokemon dppt, target*pointing, wavy mouth, full-face blush, shy<br /><br />
                     <detailes>"""
                 )
