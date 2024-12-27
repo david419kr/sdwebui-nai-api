@@ -611,6 +611,7 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
         baseNeg = neg.split("CHAR:")[0].rstrip(' ,')
         characterPrompts = []
         characterNum = len(re.findall(r'CHAR:',prompt))
+        use_coords = False
         if characterNum > 6:
             characterNum = 6
         v4_prompt = {
@@ -636,22 +637,24 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
                 uc = neg.split("CHAR:")[i+1].rstrip(' ,')
             except:
                 uc = ""
+            try:
+                # if there is "POS:" in the character prompt, split it and [0] is the character prompt, and [1] is the position
+                characterPrompt, position = characterPrompt.split("POS:")
+                center = {"x": float(position.split(",")[0]), "y": float(position.split(",")[1])}
+                use_coords = True
+                v4_prompt["use_coords"] = True
+            except:
+                center = {"x": 0.5, "y": 0.5}
             characterPrompts.append({
                 "prompt": characterPrompt,
                 "uc": uc,
-                "center": {
-                    "x": 0.5,
-                    "y": 0.5
-                }
+                "center": center
             })
             v4_prompt["caption"]["char_captions"].append(
                 {
                     "char_caption": characterPrompt,
                     "centers": [
-                        {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
+                        center
                     ],
                 }
             )
@@ -659,10 +662,7 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
                 {
                     "char_caption": uc,
                     "centers": [
-                        {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
+                        center
                     ],
                 }
             )
@@ -673,11 +673,11 @@ def NAIGenParams(prompt, neg, seed, width, height, scale, sampler, steps, noise_
         prompt = basePrompt
         neg = baseNeg
 
-        output = f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}", "use_coords": false, "characterPrompts": {characterPrompts}, "v4_prompt": {v4_prompt}, "v4_negative_prompt": {v4_negative_prompt}, "deliberate_euler_ancestral_bug": {str(deliberate_euler_ancestral_bug).lower()}, "prefer_brownian": {str(prefer_brownian).lower()}}}}}'
+        output = f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}", "characterPrompts": {characterPrompts}, "v4_prompt": {v4_prompt}, "v4_negative_prompt": {v4_negative_prompt}, "deliberate_euler_ancestral_bug": {str(deliberate_euler_ancestral_bug).lower()}, "prefer_brownian": {str(prefer_brownian).lower()}, "use_coords": {str(use_coords).lower()}}}}}'
         # save output.json
-        with open("output.json", "w", encoding="utf8") as file:
-            file.write(output)
-        return output
+        # with open("output.json", "w", encoding="utf8") as file:
+        #     file.write(output)
+        # return output
     return f'{{"input":"{prompt}","model":"{model}","action":"{action}","parameters":{{"params_version":3,"width":{int(width)},"height":{int(height)},"scale":{float(scale)},"sampler":"{sampler}","steps":{int(steps)},"seed":{int(seed)},"n_samples":{int(n_samples)}{strength or ""}{noise or ""},"ucPreset":{ucPreset},"qualityToggle":{qualityToggle},"sm":{sm},"sm_dyn":{sm_dyn},"dynamic_thresholding":{dynamic_thresholding},"controlnet_strength":1,"legacy":false,"legacy_v3_extend":{legacy_v3_extend},"add_original_image":{overlay}{uncond_scale or ""}{cfg_rescale or ""}{noise_schedule or ""}{image or ""}{mask or ""}{skip_cfg_above_sigma or ""}{reference or ""}{extra_noise_seed or ""},"negative_prompt":"{neg}"}}}}'
 
 def GrayLevels(image, inlo = 0, inhi = 255, mid = 128, outlo = 0, outhi = 255):
