@@ -110,6 +110,35 @@ class NAIGENScriptBase(scripts.Script):
             with gr.Row(variant="compact"):
                 gr.Markdown(
                     """<details>
+                    <summary><strong>How to use manual character positioning</strong></summary>
+                    You can use "POS:" prefix under "CHAR:" line, to add character position coordinates.<br />
+                    "POS:" prefix is only compatible with "CHAR:" syntax, not "|" syntax.<br />
+                    If there is no "POS:" prefix, the character will be placed by "AI's Choice".<br />
+                    The coordinates are like below.
+                    
+<pre><code>0.1,0.1 | 0.3,0.1 | 0.5,0.1 | 0.7,0.1 | 0.9,0.1
+ ---------------------------------------------
+0.1,0.3 | 0.3,0.3 | 0.5,0.3 | 0.7,0.3 | 0.9,0.3
+ ---------------------------------------------
+0.1,0.5 | 0.3,0.5 | 0.5,0.5 | 0.7,0.5 | 0.9,0.5
+ ---------------------------------------------
+0.1,0.7 | 0.3,0.7 | 0.5,0.7 | 0.7,0.7 | 0.9,0.7
+ ---------------------------------------------
+0.1,0.9 | 0.3,0.9 | 0.5,0.9 | 0.7,0.9 | 0.9,0.9
+</code></pre>
+</code>
+                    <br />
+                    Prompt example:<br />
+                    &emsp;2girls, sunny outdoors, sunbeam, looking at another, <br />
+                    &emsp;CHAR: sabrina \(pokemon\), pokemon hgss, black hair, red eyes<br />
+                    &emsp;POS: 0.3,0.5<br />
+                    &emsp;CHAR: dawn \(pokemon\), pokemon, blue hair, blue eyes<br />
+                    &emsp;POS: 0.9,0.9<br /><br />
+                    </details>"""
+                )
+            with gr.Row(variant="compact"):
+                gr.Markdown(
+                    """<details>
                     <summary><strong>You must use * instead of # for Action Tags feature.</strong></summary>
                     WebUI seems to ignore all prompts after # character, so I made * to work instead of #.<br />
                     For example, "target#pointing" becomes "target*pointing" here.<br /><br />
