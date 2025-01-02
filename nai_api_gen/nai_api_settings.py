@@ -57,6 +57,8 @@ def on_ui_settings():
 
     addopt('nai_verbose_logging', shared.OptionInfo(False, "Enable debug logging. IE Dump a bunch of garbage to the console.",gr.Checkbox, section=section))        
 
+    addopt('naiapi_use_for_hr', shared.OptionInfo(True, "Use NAI API for Hires fix(upscale)", gr.Checkbox, section=section))
+
  
     # addopt('nai_api_vibe_size', shared.OptionInfo(448, "Vibe Image Downscaling size (Default: 448)",gr.Slider, {"minimum": 256, "maximum": 1024, "step": 64}, section=section))
         
