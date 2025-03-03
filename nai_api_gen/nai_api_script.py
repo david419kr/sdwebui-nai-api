@@ -444,6 +444,9 @@ class NAIGENScriptBase(scripts.Script):
         
     def nai_configuration(self,p,enable,convert_prompts,cost_limiter,nai_post,disable_smea_in_post,model,sampler,noise_schedule,dynamic_thresholding,variety,smea,cfg_rescale,skip_cfg_above_sigma,qualityToggle,ucPreset,do_local_img2img,extra_noise,add_original_image,inpaint_mode,nai_resolution_scale,nai_cfg,nai_steps,nai_denoise_strength,legacy_v3_extend,augment_mode,defry,emotion,reclrLvlLo,reclrLvlHi,reclrLvlMid,reclrLvlLoOut,reclrLvlHiOut,deliberate_euler_ancestral_bug,prefer_brownian,keep_mask_for_local,*args):
         if self.disabled: return        
+        if getattr(p, 'enable_hr', False) and shared.opts.data.get("naiapi_not_use_for_hr", False):
+            self.disabled = True
+            return 
         DEBUG_LOG(f'nai_configuration')   
 
         self.protect_prompts(p)
